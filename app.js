@@ -25,11 +25,11 @@ app.get("/", (_req, res) => {
 });
 
 const items = {
-  11: "Coleslaw",
-  12: "Roasted chicken",
-  13: "Chicken Pizza",
-  14: "Chicken Burger",
-  15: "salad",
+  2: "Coleslaw",
+  3: "Roasted chicken",
+  4: "Chicken Pizza",
+  5: "Chicken Burger",
+  6: "salad",
 };
 
 const orderHistory = [];

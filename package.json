@@ -1,14 +1,14 @@
 {
-  "name": "new-folder",
+  "name": "lemma_chatbot",
   "version": "1.0.0",
-  "description": "",
+  "description": "A restaurant chatbot",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Haleemat Adetoro",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",

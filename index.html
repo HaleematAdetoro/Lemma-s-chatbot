@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lemma's Restaurant</title>
+    <title>Restaurant Chatbot</title>
     <style>
       body {
         background-color: #F5F3F7;
@@ -13,18 +13,24 @@
         line-height: 1.5;
       }
 
-      #chatContainer {
-        width: 960px;
-        background-color: #5d5c5c;
+      h1 {
+        font-size: 2.5em;
+        margin: 0;
+        color:rgb(60, 59, 59)
+      }
+
+      #Container {
+        width: 800px;
+        background-color: #8a7193;
         margin: 0 auto;
         border-radius: 8px;
         overflow: hidden;
         padding: 20px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+        box-shadow: 10px 5px 5px #7b5787;
         margin-top: 100px;
       }
 
-      #chatBox {
+      #chatContainer {
         height: 400px;
         padding: 16px;
         display: flex;
@@ -41,7 +47,7 @@
         border-top: 1px solid #e0e0e0;
       }
 
-      #inputField {
+      #input {
         flex-grow: 1;
         height: 40px;
         padding: 0 16px;
@@ -57,10 +63,10 @@
         width: 80px;
         border: none;
         border-radius: 20px;
-        background-color: #cb1eff;
+        background-color: #8C89A3;
         color: #ffffff;
         font-size: 16px;
-        cursor: pointer;
+        cursor: pointer
       }
 
       .message-outer-container {
@@ -77,53 +83,53 @@
 
       #bot {
         padding: 15px 20px;
-        background: #3c0340;
+        background: #631d68;
         border-radius: 10px;
         max-width: 70%;
       }
 
       #user {
         padding: 15px 20px;
-        background: #9d79ab;
+        background: #8f2596;
         border-radius: 10px;
         max-width: 70%;
       }
 
       .timestamp {
         font-size: 0.65em;
-        color: gray;
+        color: rgb(60, 59, 59);
         margin-top: 5px;
       }
       /* Media Queries */
       /* Mobile devices */
       @media screen and (max-width: 480px) {
-        #chatContainer {
+        #Container {
           width: 100%;
           margin: 20px auto;
           margin-top: 80px;
         }
-        #chatBox {
+        #chatContainer {
           height: 400px;
         }
         /* iPads, Tablets */
         @media screen and (min-width: 481px) and (max-width: 768px) {
-          #chatContainer {
+          #Container {
             width: 100%;
             margin: 20px auto;
             margin-top: 80px;
           }
-          #chatBox {
+          #chatContainer {
             height: 400px;
           }
         }
         /* Laptops, Desktops */
         @media screen and (min-width: 769px) {
-          #chatContainer {
+          #Container {
             width: 1080px;
             margin: 30px auto;
             margin-top: 100px;
           }
-          #chatBox {
+          #chatContainer {
             height: 400px;
           }
         }
@@ -132,62 +138,62 @@
   </head>
   <body>
     <main>
-      <div id="chatContainer">
-        <h1>Lemma's Restaurant</h1>
-        <div id="chatBox"></div>
+      <div id="Container">
+        <h1>Welcome to Lemma's Restaurant</h1>
+        <div id="chatContainer"></div>
         <div id="inputContainer">
           <input
             type="text"
-            id="inputField"
-            placeholder="Write your message here..."
+            id="input"
+            placeholder="Enter your message here..."
           />
-          <button id="sendButton">Send</button>
+          <button id="sendButton">send</button>
         </div>
       </div>
     </main>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      
-      const socket = io();
+      // Socket connection to the server
+      const socket = io('ws://localhost:3000');
 
-      
-      const inputField = document.getElementById("inputField");
-      const chatBox = document.getElementById("chatBox");
+      // Query DOM elements
+      const input = document.getElementById("input");
+      const chatContainer = document.getElementById("chatContainer");
       const sendButton = document.getElementById("sendButton");
 
-      
-      function appendMessage(message, sender) {
-        const messageElement = document.createElement("div");
-        messageElement.className = "message-text";
-        messageElement.id = sender;
-        messageElement.textContent = message;
+      // Helper function to append a message to the chat box
+      function appendMessage(message, sendButton) {
+        const chatMessageElement = document.createElement("div");
+        chatMessageElement.className = "message-text";
+        chatMessageElement.id = sendButton;
+        chatMessageElement.textContent = message;
 
-        const timestamp = new Date().toLocaleTimeString(); 
-        const timestampElement = document.createElement("span"); 
+        const timestamp = new Date().toLocaleTimeString(); // create timestamp
+        const timestampElement = document.createElement("span"); // create span element for timestamp
         timestampElement.className = "timestamp";
         timestampElement.textContent = timestamp;
 
         const messageContainer = document.createElement("div");
         const messageOuterContainer = document.createElement("div");
-        messageContainer.className = "message-container " + sender;
-        messageOuterContainer.className = "message-outer-container " + sender;
-        messageElement.innerHTML = message.replace(/\n/g, "<br>");
+        messageContainer.className = "message-container " + sendButton;
+        messageOuterContainer.className = "message-outer-container " + sendButton;
+        chatMessageElement.innerHTML = message.replace(/\n/g, "<br>");
         messageOuterContainer.appendChild(messageContainer);
-        messageContainer.appendChild(messageElement);
+        messageContainer.appendChild(chatMessageElement);
         messageContainer.appendChild(timestampElement);
-        chatBox.appendChild(messageOuterContainer);
-        chatBox.scrollTop = chatBox.scrollHeight;
+        chatContainer.appendChild(messageOuterContainer);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
       }
 
-      // Handling sending messages
-      function sendMessage() {
-        const message = inputField.value;
+      // Handling sendButtoning messages
+      function sendButtonMessage() {
+        const message = input.value;
         if (message === "") {
           return;
         }
         appendMessage(message, "user");
         socket.emit("user-message", message);
-        inputField.value = "";
+        input.value = "";
       }
 
       // Handling receiving messages from the server
@@ -196,10 +202,10 @@
       });
 
       // Attaching event listeners
-      sendButton.addEventListener("click", sendMessage);
-      inputField.addEventListener("keydown", (event) => {
+      sendButton.addEventListener("click", sendButtonMessage);
+      input.addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
-          sendMessage();
+          sendButtonMessage();
         }
       });
     </script>

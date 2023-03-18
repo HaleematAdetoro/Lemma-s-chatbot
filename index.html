@@ -151,10 +151,14 @@
         </div>
       </div>
     </main>
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script>
       // Socket connection to the server
       const socket = io('ws://localhost:3000');
+
+      socket.on('connected', function(msg) {
+        console.log('Customer connected')
+      });
 
       // Query DOM elements
       const input = document.getElementById("input");

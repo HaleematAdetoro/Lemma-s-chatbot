@@ -29,7 +29,9 @@ const items = {
   3: "Roasted chicken",
   4: "Chicken Pizza",
   5: "Chicken Burger",
-  6: "salad",
+  6: "Salad",
+  7: "Fries",
+  8: "Pepperoni Pizza"
 };
 
 const orderHistory = [];
@@ -99,7 +101,12 @@ io.on("connection", (socket) => {
       socket.request.session[deviceId].userName = userName;
       socket.emit(
         "bot-message",
-        `Welcome to the Lemma's ChatBot, ${userName}! select\n1. To place an order\n99. To checkout order\n98. To view order history\n97. To view current order\n0. To cancel order`
+        `Welcome to the Lemma's ChatBot, ${userName}! select\n
+        1. To place an order\n
+        99. To checkout order\n
+        98. To view order history\n
+        97. To view current order\n
+        0. To cancel order`
       );
     } else {
       switch (message) {
@@ -110,7 +117,8 @@ io.on("connection", (socket) => {
             .join("\n");
           socket.emit(
             "bot-message",
-            `The Items on our menu are:\n${itemOptions}\nSelect the item number to add to your order`
+            `The Items on our menu are:\n${itemOptions}\n
+            Select the item number to add to your order`
           );
           break;
         case "97":
@@ -120,12 +128,16 @@ io.on("connection", (socket) => {
               socket.request.session[deviceId].currentOrder.join(", ");
             socket.emit(
               "bot-message",
-              `Your current order: ${currentOrder}\n1. Place an order\n99. Checkout order\n98. Order history\n97. Current order\n0. Cancel order`
+              `Your current order: ${currentOrder}\n
+              1. Place an order\n99. Checkout order\n
+              98. Order history\n
+              97. Current order\n
+              0. Cancel order`
             );
           } else {
             socket.emit(
               "bot-message",
-              `You don't have any items in your current order yet. Type '1' to see the menu.`
+              `You have not ordered any item. Type '1' to see the menu.`
             );
           }
           break;
@@ -141,7 +153,10 @@ io.on("connection", (socket) => {
             });
             socket.emit(
               "bot-message",
-              `Thanks for your order, ${userName}! Your order of ${currentOrder} will be ready shortly.\n1. Place an order\n98. Order history\n0. Cancel order`
+              `Thank you for your order, ${userName}! Your order of ${currentOrder} will be ready soon. select\n
+              1. Place an order\n
+              98. Order history\n
+              0. Cancel order`
             );
             socket.request.session[deviceId].currentOrder = [];
           } else {
@@ -164,7 +179,9 @@ io.on("connection", (socket) => {
               .join("\n");
             socket.emit(
               "bot-message",
-              `Here is your order history:\n${history}. select \n1. To place an order\n0. To cancel order`
+              `Here is your order history:\n${history}. select\n
+              1. To place an order\n
+              0. To cancel order`
             );
           } else {
             socket.emit(
@@ -186,7 +203,9 @@ io.on("connection", (socket) => {
             orderHistory.length = 0;
             socket.emit(
               "bot-message",
-              `Your order has been cancelled. Select \n1. To place a new order\n98. To view order history`
+              `Your order has been cancelled. Select\n
+              1. To place a new order\n
+              98. To view order history`
             );
           }
           break;
@@ -199,7 +218,12 @@ io.on("connection", (socket) => {
             );
             socket.emit(
               "bot-message",
-              `You have added ${items[itemNumber]} to your current order\n you can order something else from the menu\n Type '97' to see your current order\n '98' to see order history\n '99' to checkout\n '0' to cancel your order`
+              `You have added ${items[itemNumber]} to your current order\n 
+              you can order something else from the menu\n 
+              Type 97 to see your current order\n 
+              98 to see order history\n 
+              99 to checkout\n 
+              0 to cancel your order`
             );
           } else {
             socket.emit(
@@ -220,5 +244,5 @@ io.on("connection", (socket) => {
 });
 
 server.listen(3000, () => {
-  console.log(`listening on port: 4000`);
+  console.log(`listening on port: 3000`);
 });

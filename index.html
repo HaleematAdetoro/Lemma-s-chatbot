@@ -154,7 +154,7 @@
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script>
       // Socket connection to the server
-      const socket = io('ws://localhost:3000');
+      const socket = io();
 
       socket.on('connected', function(msg) {
         console.log('Customer connected')

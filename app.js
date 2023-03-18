@@ -20,7 +20,7 @@ const sessionMiddleware = session({
 });
 
 // Serve static files from the public directory
-app.get("/", (_req, res) => {
+app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 

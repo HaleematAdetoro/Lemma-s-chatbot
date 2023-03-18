@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Restaurant Chatbot</title>
     <style>
+      
       body {
-        background-color: #F5F3F7;
-        font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
         line-height: 1.5;
+        background-color: #F5F3F7;
+        font-family: Arial, sans-serif;
+        
       }
 
       h1 {
@@ -47,26 +49,25 @@
         border-top: 1px solid #e0e0e0;
       }
 
-      #input {
-        flex-grow: 1;
-        height: 40px;
-        padding: 0 14px;
-        border: none;
-        border-radius: 15px;
-        background-color: #f0f0f0;
-        font-size: 16px;
-      }
-
       #sendButton {
         margin-left: 16px;
+        background-color: #8C89A3;
+        color: #ffffff;
+        font-size: 16px;
+        cursor: pointer;
         height: 40px;
         width: 80px;
         border: none;
         border-radius: 20px;
-        background-color: #8C89A3;
-        color: #ffffff;
+      }
+      #input {
+        border: none;
+        border-radius: 15px;
+        background-color: #f0f0f0;
         font-size: 16px;
-        cursor: pointer
+        flex-grow: 1;
+        height: 40px;
+        padding: 0 14px;
       }
 
       .message-outer-container {
@@ -100,8 +101,7 @@
         color: rgb(60, 59, 59);
         margin-top: 5px;
       }
-      /* Media Queries */
-      /* Mobile devices */
+     
       @media screen and (max-width: 480px) {
         #Container {
           width: 100%;
@@ -111,8 +111,8 @@
         #chatContainer {
           height: 380px;
         }
-        /* iPads, Tablets */
-        @media screen and (min-width: 481px) and (max-width: 768px) {
+      }  
+      @media screen and (min-width: 481px) and (max-width: 768px) {
           #Container {
             width: 100%;
             margin: 20px auto;
@@ -121,9 +121,8 @@
           #chatContainer {
             height: 380px;
           }
-        }
-        /* Laptops, Desktops */
-        @media screen and (min-width: 769px) {
+      }  
+      @media screen and (min-width: 769px) {
           #Container {
             width: 800px;
             margin: 30px auto;
@@ -132,8 +131,8 @@
           #chatContainer {
             height: 380px;
           }
-        }
       }
+      
     </style>
   </head>
   <body>
@@ -177,15 +176,15 @@
         timestampElement.className = "timestamp";
         timestampElement.textContent = timestamp;
 
-        const messageContainer = document.createElement("div");
-        const messageOuterContainer = document.createElement("div");
-        messageContainer.className = "message-container " + sendButton;
-        messageOuterContainer.className = "message-outer-container " + sendButton;
+        const textContainer = document.createElement("div");
+        const textOuterContainer = document.createElement("div");
+        textContainer.className = "message-container " + sendButton;
+        textOuterContainer.className = "message-outer-container " + sendButton;
         chatMessageElement.innerHTML = message.replace(/\n/g, "<br>");
-        messageOuterContainer.appendChild(messageContainer);
-        messageContainer.appendChild(chatMessageElement);
-        messageContainer.appendChild(timestampElement);
-        chatContainer.appendChild(messageOuterContainer);
+        textOuterContainer.appendChild(textContainer);
+        textContainer.appendChild(chatMessageElement);
+        textContainer.appendChild(timestampElement);
+        chatContainer.appendChild(textOuterContainer);
         chatContainer.scrollTop = chatContainer.scrollHeight;
       }
 

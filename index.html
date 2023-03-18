@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Restaurant Chatbot</title>
     <style>
-      
+
       body {
         margin: 0;
         padding: 0;
@@ -70,7 +70,7 @@
         padding: 0 14px;
       }
 
-      .message-outer-container {
+      .text_outer_container {
         display: flex;
         justify-content: flex-start;
         margin-bottom: 10px;
@@ -78,7 +78,7 @@
         height: 400px;
       }
 
-      .message-outer-container.user {
+      .text_outer_container.user {
         justify-content: flex-end;
       }
 
@@ -178,9 +178,14 @@
 
         const textContainer = document.createElement("div");
         const textOuterContainer = document.createElement("div");
-        textContainer.className = "message-container " + sendButton;
-        textOuterContainer.className = "message-outer-container " + sendButton;
+
+
+        textContainer.className = "text_container " + sendButton;
+        textOuterContainer.className = "text_outer_container " + sendButton;
+
+
         chatMessageElement.innerHTML = message.replace(/\n/g, "<br>");
+        
         textOuterContainer.appendChild(textContainer);
         textContainer.appendChild(chatMessageElement);
         textContainer.appendChild(timestampElement);
